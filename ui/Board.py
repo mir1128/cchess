@@ -4,16 +4,17 @@ import pygame
 from pygame.locals import *
 from sys import exit
 from log import logger
+import ui
 
-class Board:
+
+class Board(ui):
     __ROW = 10
     __COL = 9
 
-    @classmethod
-    def initialize(cls):
-        pygame.init()
-
     def __init__(self, mode=0):
+        pygame.init()
+        pygame.display.set_caption("cchess")
+
         if mode == 1:
             self.__board = [[1, 2, 3, 4, 7, 4, 3, 2, 1],
                             [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -37,13 +38,15 @@ class Board:
                             [0, 0, 0, 0, 0, 0, 0, 0, 0],
                             [1, 2, 3, 4, 7, 4, 3, 2, 1]]
 
-        self.__chess_file_mapping = {(1, 'red_rook'), (2, 'red_knight'), (3, 'red_elephant'), (4, 'red_mandarin'), (5, 'red_cannon'), (6, 'red_pawn'), (7, 'red_king'),
-                                     (11, 'black_rook'), (12, 'black_knight'), (13, 'black_elephant'), (14, 'black_mandarin'), (15, 'black_cannon'), (16, 'black_pawn'), (17, 'black_king')};
+        self.__chess_file_mapping = {(1, 'red_rook'), (2, 'red_knight'), (3, 'red_elephant'), (4, 'red_mandarin'),
+                                     (5, 'red_cannon'), (6, 'red_pawn'), (7, 'red_king'),
+                                     (11, 'black_rook'), (12, 'black_knight'), (13, 'black_elephant'),
+                                     (14, 'black_mandarin'), (15, 'black_cannon'), (16, 'black_pawn'),
+                                     (17, 'black_king')};
 
         self.__background_image_filename = '../images/boardchess.jpg'
         self.__chess_img_mapping = {}
 
-        pygame.display.set_caption("Hello, World!")
         self.__screen = pygame.display.set_mode((720, 800), 0, 32)
         self.__background = pygame.image.load(self.__background_image_filename).convert()
         for (key, name) in self.__chess_file_mapping:
@@ -51,7 +54,6 @@ class Board:
 
     def display(self, board):
         self.__board = board
-
         self.refresh()
 
     def refresh(self):
@@ -71,6 +73,7 @@ class Board:
 
     def move(self, c, src, dst):
         chess = []
+
 
 if __name__ == '__main__':
     b = Board(0)

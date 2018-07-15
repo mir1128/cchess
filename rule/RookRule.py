@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from Rule import Rule
+from rule import Rule
 import constants
 
 
@@ -33,6 +33,7 @@ class RookRule(Rule):
             return True, super(RookRule, self).isOverAfterStep(dst, board)
 
         return True, False
+
 
 if __name__ == '__main__':
     r = RookRule()

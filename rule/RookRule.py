@@ -15,7 +15,7 @@ class RookRule(Rule):
         row_src, col_src = src
         row_dst, col_dst = dst
 
-        if (board[row_src][col_src] != constants.BLACK_ROOK) and (board[row_src][col_src] != constants.RED_ROOK):
+        if (board[row_src, col_src] != constants.BLACK_ROOK) and (board[row_src, col_src] != constants.RED_ROOK):
             return False, False
 
         # 起点和终点不在一条线上

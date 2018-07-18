@@ -4,42 +4,41 @@ from Rule import Rule
 import constants
 
 
-class KinghtRule(Rule):
+class MandarinRule(Rule):
     def __init__(self):
-        super(KinghtRule, self).__init__()
+        super(MandarinRule, self).__init__()
 
     def check(self, src, dst, board):
-        super(KinghtRule, self).check(src, dst, board)
+        super(MandarinRule, self).check(src, dst, board)
 
         row_src, col_src = src
         row_dst, col_dst = dst
 
-        if (board[row_src, col_src] != constants.BLACK_KNIGHT) and (board[row_src, col_src] != constants.RED_KNIGHT):
+        if (board[row_src, col_src] != constants.BLACK_MANDARIN) and (board[row_src, col_src] != constants.RED_MANDARIN):
             return False, False
 
-        # 走日
-        if not ((abs(row_src - row_dst) == 2 and abs(col_src - col_dst) == 1) or (abs(row_src - row_dst) == 1 and abs(col_src - col_dst) == 2)):
+        if not (abs(row_src - row_dst) == 1 and abs(col_src - col_dst) == 1):
             return False, False
 
-        if row_src - row_dst == 2 and board[row_src - 1, col_src] != 0:
+        lo = [(0, 3), (0, 5), (1, 4), (2, 3), (2, 5)]
+        hi = [(9, 3), (9, 5), (8, 4), (7, 4), (7, 5)]
+
+        if (src not in lo) and (src not in hi):
             return False, False
 
-        if row_dst - row_src == 2 and board[row_src + 1, col_src] != 0:
+        if (dst not in lo) and (dst not in hi):
             return False, False
 
-        if col_src - col_dst == 2 and board[row_src, col_src - 1] != 0:
-            return False, False
-
-        if col_dst - col_src == 2 and board[row_src, col_src + 1] != 0:
+        if (src in lo and dst not in lo) or (src in hi and dst not in hi):
             return False, False
 
         # 红子吃掉黑子
         if board[row_src, col_src] < constants.BLACK_RED_LINE < board[row_dst, col_dst]:
-            return True, super(KinghtRule, self).isOverAfterStep(dst, board)
+            return True, super(MandarinRule, self).isOverAfterStep(dst, board)
 
         # 黑子吃掉红子
         if board[row_src, col_src] > constants.BLACK_RED_LINE > board[row_dst, col_dst]:
-            return True, super(KinghtRule, self).isOverAfterStep(dst, board)
+            return True, super(MandarinRule, self).isOverAfterStep(dst, board)
 
         return True, False
 
@@ -47,7 +46,7 @@ class KinghtRule(Rule):
 if __name__ == '__main__':
     import numpy as np
 
-    r = KinghtRule()
+    r = MandarinRule()
     s1 = np.array([[1, 2, 3, 4, 7, 4, 3, 2, 1],
                    [0, 0, 0, 0, 0, 0, 0, 0, 0],
                    [0, 5, 0, 0, 0, 0, 0, 5, 0],
@@ -58,23 +57,12 @@ if __name__ == '__main__':
                    [0, 15, 0, 0, 0, 0, 0, 15, 0],
                    [0, 0, 0, 0, 0, 0, 0, 0, 0],
                    [11, 12, 13, 14, 17, 14, 13, 12, 11]])
-
     try:
-        print(r.check((0, 1), (2, 2), s1))
+        print(r.check((0, 3), (1, 4), s1))
     except NameError, e:
         print(e.message)
-
+        
     try:
-        print(r.check((0, 1), (1, 2), s1))
-    except NameError, e:
-        print(e.message)
-
-    try:
-        print(r.check((0, 1), (1, 3), s1))
-    except NameError, e:
-        print(e.message)
-
-    try:
-        print(r.check((0, 1), (2, 0), s1))
+        print(r.check((0, 3), (1, 2), s1))
     except NameError, e:
         print(e.message)

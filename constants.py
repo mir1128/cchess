@@ -15,3 +15,8 @@ BLACK_CANNON = 15
 BLACK_PAWN = 16
 BLACK_KING = 17
 BLACK_RED_LINE = 10
+
+
+
+CHU = 0   #低坐标一方
+HAN = 1   #高坐标一方

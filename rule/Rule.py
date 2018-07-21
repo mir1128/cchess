@@ -45,13 +45,13 @@ class Rule(object):
         return 1 not in [item for sublist in board for item in sublist]
 
     def isOverAfterStep(self, dst, board):
-        row_dst, row_dst = dst
-        return board[row_dst][row_dst] == constants.RED_KING or board[row_dst][row_dst] == constants.BLACK_KING
+        row_dst, col_dst = dst
+        return board[row_dst, col_dst] == constants.RED_KING or board[row_dst, col_dst] == constants.BLACK_KING
 
     def isRedWinAfterStep(self, dst, board):
-        row_dst, row_dst = dst
-        return board[row_dst][row_dst] == constants.BLACK_KING
+        row_dst, col_dst = dst
+        return board[row_dst, col_dst] == constants.BLACK_KING
 
     def isBlackWinAfterStep(self, dst, board):
-        row_dst, row_dst = dst
-        return board[row_dst][row_dst] == constants.RED_KING
+        row_dst, col_dst = dst
+        return board[row_dst, col_dst] == constants.RED_KING

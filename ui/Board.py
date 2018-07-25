@@ -33,6 +33,9 @@ class Board(object):
     def update(self, board):
         self.__board = board
 
+    def get(self, row, col):
+        return self.__board[row, col]
+
     def putPieces(self, env):
         for row in range(Board.__ROW):
             for col in range(Board.__COL):
@@ -40,4 +43,7 @@ class Board(object):
                     env.putPiece(self.__board[row][col], (row, col))
 
     def move(self, c, src, dst):
-        pass
+        row_src, col_src = src
+        row_dst, col_dst = dst
+        self.__board[row_dst, col_dst] = self.__board[row_src, col_src]
+        self.__board[row_src, col_src] = 0

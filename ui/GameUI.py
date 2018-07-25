@@ -49,14 +49,6 @@ class GameUI(object):
                         board.move(which_piece_is_picked, self.toBoardPos(piece_src_position), self.toBoardPos(button_up_pos))
                         is_piece_picked = False
                         piece_src_position = None
-                        which_piece_is_picked = None
-
-                if event.type == MOUSEMOTION:
-                    if is_piece_picked:
-                        x, y = pygame.mouse.get_pos()
-                        self.__screen.blit(self.__chess_img_mapping[which_piece_is_picked], (x - 40, y - 40))
-                    else:
-                        pass
 
                 if event.type == QUIT:
                     exit()

@@ -54,8 +54,7 @@ class GameUI(object):
                         if not isValid:
                             logger.info('invalid move src %s, dst %s', str(src), str(dst))
                         if isFinished:
-                            
-
+                            logger.info('finished.')
 
                 if event.type == QUIT:
                     exit()

@@ -23,15 +23,15 @@ class Rule(object):
 
         if board[row_src, col_src] == 0:
             logger.logger.error("there is no chess at src: %s", str(src))
-            raise NameError("no chess found")
+            return False, False
 
         if board[row_src, col_src] < constants.BLACK_RED_LINE and board[row_dst, col_dst] != 0 and  board[row_dst, col_dst] < constants.BLACK_RED_LINE:
             logger.logger.error("can not eat same side piece src: %s value %d, dst %s value %d", str(src), board[row_src, col_src], str(dst), board[row_dst, row_dst])
-            raise NameError("can't eat your own pieces")
+            return False, False
 
         if board[row_src, col_src] > constants.BLACK_RED_LINE and board[row_dst, col_dst] > constants.BLACK_RED_LINE:
             logger.logger.error("can not eat same side piece src: %s value %d, dst %s value %d", str(src), board[row_src, col_src], str(dst), board[row_dst, row_dst])
-            raise NameError("can't eat your own pieces")
+            return False, False
 
         return True, False
 

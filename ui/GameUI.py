@@ -2,7 +2,7 @@
 
 from sys import exit
 from pygame.locals import *
-from log import logger
+from log.logger import logger
 import pygame
 
 
@@ -46,9 +46,16 @@ class GameUI(object):
                         is_piece_picked = True
                         piece_src_position = button_up_pos
                     else:
-                        board.move(which_piece_is_picked, self.toBoardPos(piece_src_position), self.toBoardPos(button_up_pos))
+                        src = self.toBoardPos(piece_src_position)
+                        dst = self.toBoardPos(button_up_pos)
+                        isValid, isFinished = board.move(which_piece_is_picked, src, dst)
                         is_piece_picked = False
                         piece_src_position = None
+                        if not isValid:
+                            logger.info('invalid move src %s, dst %s', str(src), str(dst))
+                        if isFinished:
+                            
+
 
                 if event.type == QUIT:
                     exit()

@@ -10,8 +10,6 @@ class PawnRule(Rule):
         super(PawnRule, self).__init__()
 
     def check(self, src, dst, board):
-        super(PawnRule, self).check(src, dst, board)
-
         row_src, col_src = src
         row_dst, col_dst = dst
 

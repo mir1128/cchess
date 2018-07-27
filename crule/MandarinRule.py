@@ -9,8 +9,6 @@ class MandarinRule(Rule):
         super(MandarinRule, self).__init__()
 
     def check(self, src, dst, board):
-        super(MandarinRule, self).check(src, dst, board)
-
         row_src, col_src = src
         row_dst, col_dst = dst
 

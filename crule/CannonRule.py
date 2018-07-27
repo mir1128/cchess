@@ -10,7 +10,6 @@ class CannonRule(Rule):
         super(CannonRule, self).__init__()
 
     def check(self, src, dst, board):
-        super(CannonRule, self).check(src, dst, board)
 
         row_src, col_src = src
         row_dst, col_dst = dst
@@ -24,6 +23,8 @@ class CannonRule(Rule):
 
         # 在同一行
         if row_src == row_dst:
+            if abs(col_src - col_dst) == 1:
+                return True, super(CannonRule, self).isOverAfterStep(dst, board)
             if all(v == 0 for v in board[row_src, min(col_src, col_dst) + 1: max(col_src, col_dst)].tolist()):
                 return True, super(CannonRule, self).isOverAfterStep(dst, board)
             if board[row_dst, col_dst] != 0 and (not self.isSameSide(src, dst, board)):
@@ -31,6 +32,9 @@ class CannonRule(Rule):
                 return arr[0].size == 1, super(CannonRule, self).isOverAfterStep(dst, board)
             return False, False
         elif col_src == col_dst:
+            if abs(row_src - row_dst) == 1:
+                return True, super(CannonRule, self).isOverAfterStep(dst, board)
+
             if all(v == 0 for v in board[min(row_src, row_dst) + 1:  max(row_src, row_dst), col_src].tolist()):
                 return True, super(CannonRule, self).isOverAfterStep(dst, board)
             if board[row_dst, col_dst] != 0 and (not self.isSameSide(src, dst, board)):

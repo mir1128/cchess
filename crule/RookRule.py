@@ -10,8 +10,6 @@ class RookRule(Rule):
         super(RookRule, self).__init__()
 
     def check(self, src, dst, board):
-        super(RookRule, self).check(src, dst, board)
-
         row_src, col_src = src
         row_dst, col_dst = dst
 
@@ -24,11 +22,16 @@ class RookRule(Rule):
 
         # 在同一行
         if row_src == row_dst:
-            if any(v != 0 for v in board[row_src, min(col_src, col_dst) + 1, max(col_src, col_dst)].tolist()):
+            if abs(col_src - col_dst) == 1:
+                return True, super(RookRule, self).isOverAfterStep(dst, board)
+            if any(v != 0 for v in board[row_src, min(col_src, col_dst) + 1: max(col_src, col_dst)].tolist()):
                 return False, False
 
         # 在同一列
         if col_src == col_dst:
+            if abs(row_src - row_dst) == 1:
+                return True, super(RookRule, self).isOverAfterStep(dst, board)
+
             if any(v != 0 for v in board[min(row_src, row_dst) + 1: max(row_src, row_dst), col_src].tolist()):
                 return False, False
 

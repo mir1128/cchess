@@ -20,3 +20,6 @@ BLACK_RED_LINE = 10
 
 CHU = 0   #低坐标一方
 HAN = 1   #高坐标一方
+
+RED_TURN = 0
+BLACK_TRUN = 1

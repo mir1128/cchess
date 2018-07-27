@@ -26,11 +26,11 @@ class Rule(object):
             return False, False
 
         if board[row_src, col_src] < constants.BLACK_RED_LINE and board[row_dst, col_dst] != 0 and  board[row_dst, col_dst] < constants.BLACK_RED_LINE:
-            logger.logger.error("can not eat same side piece src: %s value %d, dst %s value %d", str(src), board[row_src, col_src], str(dst), board[row_dst, row_dst])
+            logger.logger.error("can not eat same side piece src: %s value %d, dst %s value %d", str(src), board[row_src, col_src], str(dst), board[row_dst, col_dst])
             return False, False
 
         if board[row_src, col_src] > constants.BLACK_RED_LINE and board[row_dst, col_dst] > constants.BLACK_RED_LINE:
-            logger.logger.error("can not eat same side piece src: %s value %d, dst %s value %d", str(src), board[row_src, col_src], str(dst), board[row_dst, row_dst])
+            logger.logger.error("can not eat same side piece src: %s value %d, dst %s value %d", str(src), board[row_src, col_src], str(dst), board[row_dst, col_dst])
             return False, False
 
         return True, False

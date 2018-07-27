@@ -8,7 +8,8 @@ from crule.KnightRule import KinghtRule
 from crule.MandarinRule import MandarinRule
 from crule.PawnRule import PawnRule
 from crule.RookRule import RookRule
-
+from crule.TurnRule import TurnRule
+from crule.Rule import Rule
 
 class Board(object):
     __ROW = 10
@@ -38,7 +39,9 @@ class Board(object):
                                      [0, 0, 0, 0, 0, 0, 0, 0, 0],
                                      [1, 2, 3, 4, 7, 4, 3, 2, 1]])
 
+        self.__baseRule = Rule()
         self.__rules = [CannonRule(), ElephantRule(), KingRule(), KinghtRule(), MandarinRule(), PawnRule(), RookRule()]
+        self.__turn = TurnRule()
 
     def update(self, board):
         self.__board = board
@@ -53,6 +56,12 @@ class Board(object):
                     env.putPiece(self.__board[row][col], (row, col))
 
     def move(self, c, src, dst):
+        if not self.__turn.check(src,  self.__board):
+            return False, False
+        baseRule = self.__baseRule.check(src, dst, self.__board)
+        if not baseRule[0]:
+            return False, False
+
         isValid = False
         isFihished = False
         for v in self.__rules:
@@ -63,6 +72,8 @@ class Board(object):
                 self.__board[row_dst, col_dst] = self.__board[row_src, col_src]
                 self.__board[row_src, col_src] = 0
                 break
+        if isValid:
+            self.__turn.nextTurn()
         return isValid, isFihished
 
 if __name__ == '__main__':

@@ -16,6 +16,9 @@ class TurnRule(object):
             return True
         return False
 
+    def currentTurn(self):
+        return self.whos_turn
+
     def nextTurn(self):
         if self.whos_turn == constants.RED_TURN:
             self.whos_turn = constants.BLACK_TRUN

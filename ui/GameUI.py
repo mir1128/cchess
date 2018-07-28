@@ -4,6 +4,7 @@ from sys import exit
 from pygame.locals import *
 from log.logger import logger
 import pygame
+from board.Board import Board
 
 
 class GameUI(object):
@@ -30,7 +31,7 @@ class GameUI(object):
         self.__screen.blit(self.__chess_img_mapping[piece], (col * 80, row * 80))
 
     def run(self):
-        board = Board.Board()
+        board = Board()
         is_piece_picked = False
         piece_src_position = None
 
@@ -40,7 +41,7 @@ class GameUI(object):
                     button_up_pos = pygame.mouse.get_pos()
                     if not is_piece_picked:
                         which_piece_is_picked = self.getPieceByPosition(board, button_up_pos)
-                        if which_piece_is_picked != 0:
+                        if which_piece_is_picked != 0 and board.isTurnRight(self.toBoardPos(button_up_pos)):
                             is_piece_picked = True
                             piece_src_position = button_up_pos
                             logger.info("pick an chess %s, src pos is %s", str(which_piece_is_picked), str(piece_src_position))
@@ -63,8 +64,8 @@ class GameUI(object):
                             else:
                                 logger.info('invalid move src %s, dst %s', str(src), str(dst))
 
-                        if isFinished:
-                            logger.info('finished.')
+                            if isFinished:
+                                logger.info('finished.')
 
                 if event.type == QUIT:
                     exit()

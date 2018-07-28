@@ -49,7 +49,7 @@ class GameUI(object):
                         dst = self.toBoardPos(button_up_pos)
                         another_pick = self.getPieceByPosition(board, button_up_pos)
 
-                        # 又拾起了另一个自己的棋子
+                        # pick another self chess
                         if another_pick != 0 and board.isSameSide(src, dst):
                             which_piece_is_picked = another_pick
                             piece_src_position = button_up_pos

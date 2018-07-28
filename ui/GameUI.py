@@ -4,7 +4,6 @@ from sys import exit
 from pygame.locals import *
 from log.logger import logger
 import pygame
-from gametree.gametree import next_step
 
 
 class GameUI(object):
@@ -71,7 +70,8 @@ class GameUI(object):
                     exit()
 
                 self.__screen.blit(self.__background, (0, 0))
-                board.putPieces(self)
+                for c in board.getPieces():
+                    self.putPiece(c[0], c[1])
                 pygame.display.update()
 
     def play(self):
@@ -80,7 +80,7 @@ class GameUI(object):
             c, src, dst = next_step()
             isValid, isFinished = board.move(c, src, dst)
             self.__screen.blit(self.__background, (0, 0))
-            board.putPieces(self)
+            board.getPieces(self)
             pygame.display.update()
             if isFinished:
                 break
@@ -94,7 +94,7 @@ class GameUI(object):
         return y/80, x/80
 
 if __name__ == '__main__':
-    from ui import Board
+    from board import Board
 
     e = GameUI()
     e.run()

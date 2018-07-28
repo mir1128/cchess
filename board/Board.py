@@ -41,11 +41,13 @@ class Board(object):
     def get(self, row, col):
         return self.__board[row, col]
 
-    def putPieces(self, env):
+    def getPieces(self):
+        result = []
         for row in range(Board.__ROW):
             for col in range(Board.__COL):
                 if self.__board[row][col] != 0:
-                    env.putPiece(self.__board[row][col], (row, col))
+                    result.append((self.__board[row][col], (row, col)))
+        return result
 
     def move(self, c, src, dst):
         if not self.__turn.check(src,  self.__board):

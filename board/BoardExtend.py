@@ -21,7 +21,6 @@ class BoardExtend(Board):
                         possible_movements.append((r, c, row, col))
         return possible_movements
 
-
     def getThisTurnPieces(self):
         pieces_can_move = []
 
@@ -35,6 +34,20 @@ class BoardExtend(Board):
                         if self.getBoard()[r, c] > constants.BLACK_RED_LINE:
                             pieces_can_move.append((r, c))
         return pieces_can_move
+
+    def clone(self):
+        b = BoardExtend()
+        b.update(self.getBoard(), self.getTurn())
+        return b
+
+    def output(self):
+        turn = None
+        if self.getTurn() == constants.RED_TURN:
+            turn = 'red'
+        else:
+            turn = 'black'
+
+        return turn + ' : ' + str(self.getBoard().tolist())
 
 
 if __name__ == '__main__':

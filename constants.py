@@ -23,3 +23,5 @@ HAN = 1   #高坐标一方
 
 RED_TURN = 0
 BLACK_TRUN = 1
+
+LEVEL = 5

@@ -45,6 +45,6 @@ if __name__ == '__main__':
     game_tree = GameTree()
 
     node = game_tree.buildTree(board, 2)
-    print(node.output())
+    node.format()
 
 

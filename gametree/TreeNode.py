@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from log.logger import logger
 
 class TreeNode(object):
     def __init__(self):
@@ -30,6 +31,12 @@ class TreeNode(object):
 
     def output(self):
         return self.__board.output()
+
+    def format(self):
+        logger.info(self.output())
+        for n in self.__children:
+            n.format()
+
 
 if __name__ == '__main__':
     print "hello world"

@@ -25,7 +25,8 @@ class CannonRule(Rule):
         if row_src == row_dst:
             if abs(col_src - col_dst) == 1:
                 return True, super(CannonRule, self).isOverAfterStep(dst, board)
-            if all(v == 0 for v in board[row_src, min(col_src, col_dst) + 1: max(col_src, col_dst)].tolist()):
+
+            if all(v == 0 for v in board[row_src, min(col_src, col_dst) + 1: max(col_src, col_dst)].tolist()) and board[row_dst, col_dst] == 0:
                 return True, super(CannonRule, self).isOverAfterStep(dst, board)
             if board[row_dst, col_dst] != 0 and (not self.isSameSide(src, dst, board)):
                 arr = np.where(board[row_src, min(col_src, col_dst) + 1: max(col_src, col_dst)] != 0)
@@ -35,7 +36,7 @@ class CannonRule(Rule):
             if abs(row_src - row_dst) == 1:
                 return True, super(CannonRule, self).isOverAfterStep(dst, board)
 
-            if all(v == 0 for v in board[min(row_src, row_dst) + 1:  max(row_src, row_dst), col_src].tolist()):
+            if all(v == 0 for v in board[min(row_src, row_dst) + 1:  max(row_src, row_dst), col_src].tolist()) and board[row_dst, col_dst] == 0:
                 return True, super(CannonRule, self).isOverAfterStep(dst, board)
             if board[row_dst, col_dst] != 0 and (not self.isSameSide(src, dst, board)):
                 arr = np.where(board[min(row_src, row_dst) + 1: max(row_src, row_dst), col_src] != 0)

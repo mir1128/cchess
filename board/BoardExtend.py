@@ -6,17 +6,20 @@ import constants
 
 class BoardExtend(Board):
     def __init__(self):
-        super(Board, self).__init__()
+        Board.__init__(self)
 
-    def nexPossibleMovements(self):
+    def nextPossibleMovements(self):
 
         possible_movements = []
 
-        pieces = self.getThisTurnPieces()
-
-        for p in pieces:
-            self.get(p)
-
+        for p in self.getThisTurnPieces():
+            r, c = p
+            for row in range(Board.ROW):
+                for col in range(Board.COL):
+                    is_valid, is_finished = self.checkMovement(self.get(r, c), p, (row, col))
+                    if is_valid:
+                        possible_movements.append((r, c, row, col))
+        return possible_movements
 
 
     def getThisTurnPieces(self):
@@ -31,7 +34,10 @@ class BoardExtend(Board):
                     else:
                         if self.getBoard()[r, c] > constants.BLACK_RED_LINE:
                             pieces_can_move.append((r, c))
+        return pieces_can_move
 
 
 if __name__ == '__main__':
-    print "hello world"
+    b = BoardExtend()
+
+    print b.nextPossibleMovements()

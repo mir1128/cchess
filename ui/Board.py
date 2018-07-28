@@ -1,15 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
-from crule.CannonRule import CannonRule
-from crule.ElephantRule import ElephantRule
-from crule.KingRule import KingRule
-from crule.KnightRule import KinghtRule
-from crule.MandarinRule import MandarinRule
-from crule.PawnRule import PawnRule
-from crule.RookRule import RookRule
-from crule.TurnRule import TurnRule
-from crule.Rule import Rule
+import crule
 
 class Board(object):
     __ROW = 10
@@ -39,9 +31,9 @@ class Board(object):
                                      [0, 0, 0, 0, 0, 0, 0, 0, 0],
                                      [1, 2, 3, 4, 7, 4, 3, 2, 1]])
 
-        self.__baseRule = Rule()
-        self.__rules = [CannonRule(), ElephantRule(), KingRule(), KinghtRule(), MandarinRule(), PawnRule(), RookRule()]
-        self.__turn = TurnRule()
+        self.__baseRule = crule.Rule()
+        self.__rules = [crule.CannonRule(), crule.ElephantRule(), crule.KingRule(), crule.KnightRule(), crule.MandarinRule(), crule.PawnRule(), crule.RookRule()]
+        self.__turn = crule.TurnRule()
 
     def update(self, board):
         self.__board = board

@@ -4,9 +4,9 @@ from Rule import Rule
 import constants
 
 
-class KinghtRule(Rule):
+class KnightRule(Rule):
     def __init__(self):
-        super(KinghtRule, self).__init__()
+        super(KnightRule, self).__init__()
 
     def check(self, src, dst, board):
         row_src, col_src = src
@@ -33,11 +33,11 @@ class KinghtRule(Rule):
 
         # 红子吃掉黑子
         if board[row_src, col_src] < constants.BLACK_RED_LINE < board[row_dst, col_dst]:
-            return True, super(KinghtRule, self).isOverAfterStep(dst, board)
+            return True, super(KnightRule, self).isOverAfterStep(dst, board)
 
         # 黑子吃掉红子
         if board[row_src, col_src] > constants.BLACK_RED_LINE > board[row_dst, col_dst]:
-            return True, super(KinghtRule, self).isOverAfterStep(dst, board)
+            return True, super(KnightRule, self).isOverAfterStep(dst, board)
 
         return True, False
 
@@ -45,7 +45,7 @@ class KinghtRule(Rule):
 if __name__ == '__main__':
     import numpy as np
 
-    r = KinghtRule()
+    r = KnightRule()
     s1 = np.array([[1, 2, 3, 4, 7, 4, 3, 2, 1],
                    [0, 0, 0, 0, 0, 0, 0, 0, 0],
                    [0, 5, 0, 0, 0, 0, 0, 5, 0],

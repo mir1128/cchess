@@ -4,6 +4,7 @@ from sys import exit
 from pygame.locals import *
 from log.logger import logger
 import pygame
+from gametree.gametree import next_step
 
 
 class GameUI(object):
@@ -35,7 +36,6 @@ class GameUI(object):
 
         is_piece_picked = False
         piece_src_position = None
-        which_piece_is_picked = None
 
         while True:
             for event in pygame.event.get():
@@ -62,6 +62,17 @@ class GameUI(object):
                 self.__screen.blit(self.__background, (0, 0))
                 board.putPieces(self)
                 pygame.display.update()
+
+    def play(self):
+        board = Board.Board()
+        while True:
+            c, src, dst = next_step()
+            isValid, isFinished = board.move(c, src, dst)
+            self.__screen.blit(self.__background, (0, 0))
+            board.putPieces(self)
+            pygame.display.update()
+            if isFinished:
+                break
 
     def getPieceByPosition(self, board,  button_up_pos):
         row, col = self.toBoardPos(button_up_pos)

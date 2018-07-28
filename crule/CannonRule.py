@@ -44,17 +44,6 @@ class CannonRule(Rule):
         else:
             return False, False
 
-    def isSameSide(self, src, dst, board):
-        row_src, col_src = src
-        row_dst, col_dst = dst
-
-        if board[row_src, col_src] < constants.BLACK_RED_LINE and board[row_dst, col_dst] < constants.BLACK_RED_LINE:
-            return True
-        if board[row_src, col_src] > constants.BLACK_RED_LINE and board[row_dst, col_dst] > constants.BLACK_RED_LINE:
-            return True
-        return False
-
-
 if __name__ == '__main__':
     s1 = np.array([[1, 2, 3, 4, 7, 4, 3, 2, 1],
                    [0, 0, 0, 0, 0, 0, 0, 0, 0],

@@ -55,3 +55,13 @@ class Rule(object):
     def isBlackWinAfterStep(self, dst, board):
         row_dst, col_dst = dst
         return board[row_dst, col_dst] == constants.RED_KING
+
+    def isSameSide(self, src, dst, board):
+        row_src, col_src = src
+        row_dst, col_dst = dst
+
+        if board[row_src, col_src] < constants.BLACK_RED_LINE and board[row_dst, col_dst] < constants.BLACK_RED_LINE and board[row_src, col_src] != 0 and board[row_dst, col_dst] != 0:
+            return True
+        if board[row_src, col_src] > constants.BLACK_RED_LINE and board[row_dst, col_dst] > constants.BLACK_RED_LINE:
+            return True
+        return False

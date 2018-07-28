@@ -31,9 +31,7 @@ class GameUI(object):
         self.__screen.blit(self.__chess_img_mapping[piece], (col * 80, row * 80))
 
     def run(self):
-
         board = Board.Board()
-
         is_piece_picked = False
         piece_src_position = None
 
@@ -41,18 +39,31 @@ class GameUI(object):
             for event in pygame.event.get():
                 if event.type == MOUSEBUTTONUP:
                     button_up_pos = pygame.mouse.get_pos()
-                    which_piece_is_picked = self.getPieceByPosition(board, button_up_pos)
                     if not is_piece_picked:
-                        is_piece_picked = True
-                        piece_src_position = button_up_pos
+                        which_piece_is_picked = self.getPieceByPosition(board, button_up_pos)
+                        if which_piece_is_picked != 0:
+                            is_piece_picked = True
+                            piece_src_position = button_up_pos
+                            logger.info("pick an chess %s, src pos is %s", str(which_piece_is_picked), str(piece_src_position))
                     else:
                         src = self.toBoardPos(piece_src_position)
                         dst = self.toBoardPos(button_up_pos)
-                        isValid, isFinished = board.move(which_piece_is_picked, src, dst)
-                        is_piece_picked = False
-                        piece_src_position = None
-                        if not isValid:
-                            logger.info('invalid move src %s, dst %s', str(src), str(dst))
+                        another_pick = self.getPieceByPosition(board, button_up_pos)
+
+                        # 又拾起了另一个自己的棋子
+                        if another_pick != 0 and board.isSameSide(src, dst):
+                            which_piece_is_picked = another_pick
+                            piece_src_position = button_up_pos
+                            logger.info("pick another chess %s, src pos is %s", str(which_piece_is_picked), str(piece_src_position))
+                            break
+                        else:
+                            isValid, isFinished = board.move(which_piece_is_picked, src, dst)
+                            if isValid:
+                                is_piece_picked = False
+                                piece_src_position = None
+                            else:
+                                logger.info('invalid move src %s, dst %s', str(src), str(dst))
+
                         if isFinished:
                             logger.info('finished.')
 

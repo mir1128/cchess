@@ -68,5 +68,8 @@ class Board(object):
             self.__turn.nextTurn()
         return isValid, isFihished
 
+    def isSameSide(self, src, dst):
+        return self.__baseRule.isSameSide(src, dst, self.__board)
+
 if __name__ == '__main__':
     print("hello world")
